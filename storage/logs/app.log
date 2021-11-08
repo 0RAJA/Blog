@@ -4,3 +4,25 @@
 2021/11/07 19:34:04 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636284844209002500}
 2021/11/07 19:36:45 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636285005741785600}
 2021/11/07 19:37:43 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636285063016731500}
+2021/11/07 21:25:04 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636291504707134900}
+2021/11/07 21:41:44 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636292504422877500}
+2021/11/07 21:42:27 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636292547841980800}
+2021/11/07 21:47:33 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636292853675159700}
+2021/11/07 21:47:54 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636292874865105400}
+2021/11/07 21:50:30 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636293030112238100}
+2021/11/07 21:50:39 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636293039653984300}
+2021/11/07 22:05:49 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636293949952409800}
+2021/11/07 22:09:52 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636294192461171000}
+2021/11/07 22:15:18 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636294518923652200}
+2021/11/07 22:22:19 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636294939316266200}
+2021/11/07 22:23:24 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636295004451133900}
+2021/11/07 22:29:40 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636295380195828300}
+2021/11/07 22:31:30 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636295490379636300}
+2021/11/07 22:39:26 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636295966255689000}
+2021/11/08 12:03:17 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636344197613259900}
+2021/11/08 12:03:55 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"fatal","message":"app.BindAndValid errs: [State必须是[0 1]中的一个]","time":1636344235447034200}
+2021/11/08 12:04:08 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636344248196340300}
+2021/11/08 12:04:10 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"fatal","message":"app.BindAndValid errs: [State必须是[0 1]中的一个]","time":1636344250453952100}
+2021/11/08 12:05:21 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"eddycjy: go-programming-tour-book/blog-service","time":1636344321756663700}
+2021/11/08 12:05:24 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"app.BindAndValid errs: [State必须是[0 1]中的一个]","time":1636344324185169200}
+2021/11/08 12:05:54 {"callers":["D:/Projects/GoFile/Blog/main.go: 25 main.init.0"],"level":"info","message":"app.BindAndValid errs: [State必须是[0 1]中的一个]","time":1636344354854057200}
