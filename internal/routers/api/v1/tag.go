@@ -67,6 +67,7 @@ func (t Tag) List(c *gin.Context) {
 		response.ToErrorResponse(errcode.ErrorGetTagListFail)
 		return
 	}
+	//runtime.Goexit()
 	response.ToResponseList(tags, totalRows) //返回结果
 }
 
@@ -113,7 +114,7 @@ func (t Tag) Create(c *gin.Context) {
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tags/{id} [put]
 func (t Tag) Update(c *gin.Context) {
-	param := service.UpdateTagRequest{}
+	param := service.UpdateTagRequest{ID: convert.StrTo(c.Param("id")).MustUInt32()}
 	response := app.NewResponse(c)
 	vaild, errs := app.BindAndValid(c, &param)
 	if !vaild {

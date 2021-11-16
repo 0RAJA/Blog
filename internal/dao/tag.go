@@ -38,10 +38,15 @@ func (d *Dao) CreateTag(name string, state uint8, createBy string) error {
 func (d *Dao) UpdateTag(id uint32, name string, state uint8, modifiedBy string) error {
 	tag := model.Tag{
 		Model: &model.Model{ID: id, ModifiedBy: modifiedBy},
-		Name:  name,
-		State: state,
 	}
-	return tag.Update(d.engine)
+	values := map[string]interface{}{
+		"state":       state,
+		"modified_by": modifiedBy,
+	}
+	if name != "" {
+		values["name"] = name
+	}
+	return tag.Update(d.engine, values)
 }
 
 func (d *Dao) DeleteTag(id uint32) error {

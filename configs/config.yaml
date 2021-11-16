@@ -1,17 +1,26 @@
 #  Server：服务配置，设置 gin 的运行模式、默认的 HTTP 监听端口、允许读取和写入的最大持续时间。
 #  App：应用配置，设置默认每页数量、所允许的最大每页数量以及默认的应用日志存储路径。
 #  Database：数据库配置，主要是连接实例所必需的基础参数。
+# UploadSavePath : 上传文件配置
 Server:
   RunMode: debug
   HttpPort: 8080
-  ReadTimeout: 10
-  WriteTimeout: 10
+  ReadTimeout: 3
+  WriteTimeout: 3
 App:
-  DefaultPageSize: 10
+  DefaultPageSize: 5
   MaxPageSize: 100
-  LogSavePath: storage/logs
-  LogFileName: app
-  LogFileExt: .log
+  LogSavePath: storage/logs # 日志保存路径
+  LogFileName: app # 日志文件名
+  LogFileExt: .log # 上传文件后缀
+  UploadSavePath: storage/uploads # 上传文件的最终保存目录
+  UploadServerUrl: http://127.0.0.1:8080/static # 上传文件后的用于展示的文件服务地址
+  UploadImageMaxSize: 5  # MB 上传文件所允许的最大空间大小
+  UploadImageAllowExts: # 上传文件所允许的文件后缀
+    - .jpg
+    - .jpeg
+    - .png
+  DefaultContextTimeout: 5 #默认超时时间
 Database:
   DBType: mysql
   Username: root  # 填写你的数据库账号
@@ -23,3 +32,16 @@ Database:
   ParseTime: True
   MaxIdleConns: 10
   MaxOpenConns: 30
+JWT:
+  Secret: raja # 密钥
+  Issuer: blog-service # 签发者
+  Expire: 72000 # 过期时间72000秒
+Email:
+  Host: smtp.qq.com
+  Port: 465
+  UserName: 1647193241@qq.com
+  Password: hrefwwxzvxgbehfc
+  IsSSL: true
+  From: 1647193241@qq.com
+  To:
+    - 1647193241@qq.com

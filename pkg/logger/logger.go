@@ -84,12 +84,14 @@ func (l *Logger) WithFields(f Fields) *Logger {
 	return ll
 }
 
+// WithContext 上下文
 func (l *Logger) WithContext(ctx context.Context) *Logger {
 	ll := l.clone()
 	ll.ctx = ctx
 	return ll
 }
 
+// WithCaller 调用栈信息
 func (l *Logger) WithCaller(skip int) *Logger {
 	ll := l.clone()
 	pc, file, line, ok := runtime.Caller(skip)

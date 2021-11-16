@@ -10,14 +10,20 @@ type Setting struct {
 
 // NewSetting 初始化本项目的配置的基础属性
 // 设定配置文件的名称为 config，配置类型为 yaml，并且设置其配置路径为相对路径 configs/
-func NewSetting() (*Setting, error) {
+func NewSetting(configs ...string) (*Setting, error) {
 	vp := viper.New()
 	vp.SetConfigName("config")
-	vp.AddConfigPath("configs/") //可以设置多个配置路径,解决路径查找问题
+	for _, config := range configs {
+		if config != "" {
+			vp.AddConfigPath(config) //可以设置多个配置路径,解决路径查找问题
+		}
+	}
 	vp.SetConfigType("yaml")
 	err := vp.ReadInConfig()
 	if err != nil {
 		return nil, err
 	}
-	return &Setting{vp: vp}, nil
+	s := &Setting{vp: vp}
+	s.WatchSettingChange() //热监听
+	return s, nil
 }

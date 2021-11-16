@@ -44,7 +44,6 @@ func (t Tag) List(db *gorm.DB, pageOffset, pageSize int) ([]*Tag, error) {
 	if t.Name != "" {
 		db = db.Where("name = ?", t.Name)
 	}
-	db = db.Where("name = ?", t.Name)
 	if err = db.Where("is_del = ?", 0).Find(&tags).Error; err != nil {
 		return nil, err
 	}
@@ -57,8 +56,11 @@ func (t Tag) Create(db *gorm.DB) error {
 }
 
 // Update 更新标签
-func (t Tag) Update(db *gorm.DB) error {
-	return db.Model(&Tag{}).Where("id = ? AND is_del = ?", t.ID, 0).Update(&t).Error
+func (t Tag) Update(db *gorm.DB, values interface{}) error {
+	if err := db.Model(t).Where("id = ? AND is_del = ?", t.ID, 0).Updates(values).Error; err != nil {
+		return err
+	}
+	return nil
 }
 
 // Delete 删除标签

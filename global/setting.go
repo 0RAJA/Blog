@@ -8,5 +8,6 @@ var (
 	ServerSetting   = new(setting.ServerSettingS)
 	AppSetting      = new(setting.AppSettingS)
 	DatabaseSetting = new(setting.DatabaseSettingS)
+	JWTSetting      = new(setting.JWTSettings)
+	EmailSetting    = new(setting.EmailSettingS)
 )
-
