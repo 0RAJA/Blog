@@ -130,10 +130,10 @@ func setupDBEngine() error {
 
 func setupLogger() error {
 	//是我们使用了 lumberjack 作为日志库的 io.Writer，
-	//并且设置日志文件所允许的最大占用空间为 600MB、日志文件最大生存周期为 10 天，并且设置日志文件名的时间格式为本地时间。
+	//并且设置日志文件所允许的最大占用空间为 60MB、日志文件最大生存周期为 10 天，并且设置日志文件名的时间格式为本地时间。
 	global.Logger = logger.NewLogger(&lumberjack.Logger{
 		Filename:  global.AppSetting.LogSavePath + "/" + global.AppSetting.LogFileName + global.AppSetting.LogFileExt,
-		MaxSize:   600,
+		MaxSize:   60,
 		MaxAge:    10,
 		LocalTime: true,
 	}, "", log.LstdFlags).WithCaller(2)

@@ -307,3 +307,17 @@ dao层负责组装数据与model层沟通,返回数据给service层
 model层只负责与数据库进行操作,返回有用的数据给dao层
 
 结论: service层的模型负责绑定客户数据和返回给客户.over
+
+## 优雅重启
+
+![image-20211118222607697](README.assets/image-20211118222607697.png)
+
+先把没完成的任务完成了再退出(同时拒绝接受新的连接)
+
+## 交叉编译
+
+```shell
+CGO_ENABLED=0 GOOS=linux go build -a -o blog_service .
+```
+
+关闭CGO,指定目标操作系统为linux,强制重新编译所有依赖的文件.重命名为blog_service
