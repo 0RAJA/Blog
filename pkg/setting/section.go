@@ -59,6 +59,7 @@ type EmailSettingS struct {
 //配置名存储记录
 var sections = make(map[string]interface{})
 
+// ReadSection 绑定配置文件
 func (s *Setting) ReadSection(k string, v interface{}) error {
 	//绑定
 	err := s.vp.UnmarshalKey(k, v)
@@ -71,6 +72,7 @@ func (s *Setting) ReadSection(k string, v interface{}) error {
 	return nil
 }
 
+// ReloadAllSection 重新读取配置文件
 func (s *Setting) ReloadAllSection() error {
 	for k, v := range sections {
 		err := s.ReadSection(k, v)
@@ -81,6 +83,7 @@ func (s *Setting) ReloadAllSection() error {
 	return nil
 }
 
+// WatchSettingChange 监听配置文件
 func (s *Setting) WatchSettingChange() {
 	go func() {
 		s.vp.WatchConfig()

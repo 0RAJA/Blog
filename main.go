@@ -9,6 +9,7 @@ import (
 	"Blog/pkg/tracer"
 	"context"
 	"flag"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"gopkg.in/natefinch/lumberjack.v2"
 	"log"
@@ -61,7 +62,7 @@ func main() {
 	go func() {
 		err := s.ListenAndServe()
 		if err != nil {
-			panic("Listen Error!")
+			fmt.Println(err)
 		}
 	}()
 	//退出通知
@@ -145,7 +146,9 @@ func setupFlag() {
 	flag.StringVar(&runMode, "mode", "", "启动模式")
 	flag.StringVar(&config, "config", "configs/", "指定要使用的配置文件路径")
 	flag.Parse()
-	//fmt.Println(port, runMode, config)
+	if config == "" {
+		config = "configs/"
+	}
 }
 
 func SetupTracer() error {

@@ -17,6 +17,16 @@ func NewUpload() Upload {
 	return Upload{}
 }
 
+// UpLoadFile
+// @Tags File
+// @Summary 上传图片
+// @Produce  json
+// @Param file formData string true "文件名称"
+// @Param type body int true "1为图片"
+// @Success 200 {string} string "URL"
+// @Failure 400 {object} errcode.Error "请求错误"
+// @Failure 500 {object} errcode.Error "内部错误"
+// @Router /upload/file [post]
 func (u Upload) UpLoadFile(c *gin.Context) {
 	response := app.NewResponse(c)
 	file, fileHeader, err := c.Request.FormFile("file") //获取文件信息

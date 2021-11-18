@@ -19,43 +19,6 @@ definitions:
       msg:
         type: string
     type: object
-  model.Article:
-    properties:
-      content:
-        type: string
-      cover_image_url:
-        type: string
-      created_by:
-        type: string
-      created_on:
-        type: integer
-      deleted_on:
-        type: integer
-      desc:
-        type: string
-      id:
-        type: integer
-      is_del:
-        type: integer
-      modified_by:
-        type: string
-      modified_on:
-        type: integer
-      state:
-        type: integer
-      title:
-        type: string
-    type: object
-  model.ArticleSwagger:
-    properties:
-      list:
-        items:
-          $ref: '#/definitions/model.Article'
-        type: array
-      pager:
-        $ref: '#/definitions/app.Pager'
-        type: object
-    type: object
   model.Tag:
     properties:
       created_by:
@@ -87,6 +50,33 @@ definitions:
         $ref: '#/definitions/app.Pager'
         type: object
     type: object
+  service.Article:
+    properties:
+      content:
+        type: string
+      cover_image_url:
+        type: string
+      desc:
+        type: string
+      id:
+        type: integer
+      state:
+        type: integer
+      tag:
+        $ref: '#/definitions/model.Tag'
+        type: object
+      title:
+        type: string
+    type: object
+  service.ArticleSwagger:
+    properties:
+      list:
+        $ref: '#/definitions/service.Article'
+        type: object
+      pager:
+        $ref: '#/definitions/app.Pager'
+        type: object
+    type: object
 info:
   contact: {}
   description: Go 语言编程之旅：一起用 Go 做项目
@@ -98,16 +88,11 @@ paths:
   /api/v1/articles:
     get:
       parameters:
-      - description: 文章名称
+      - description: 标签ID
         in: query
-        maxLength: 100
-        name: name
-        type: string
-      - default: 1
-        description: 状态
-        enum:
-        - 0
-        - 1
+        name: tag_id
+        type: integer
+      - description: 状态
         in: query
         name: state
         type: integer
@@ -125,7 +110,7 @@ paths:
         "200":
           description: 成功
           schema:
-            $ref: '#/definitions/model.ArticleSwagger'
+            $ref: '#/definitions/service.ArticleSwagger'
         "400":
           description: 请求错误
           schema:
@@ -139,38 +124,53 @@ paths:
       - Article
     post:
       parameters:
-      - description: 文章名称
+      - description: 标签ID
         in: body
-        maxLength: 100
-        minLength: 3
-        name: name
+        name: tag_id
         required: true
         schema:
           type: string
-      - default: 1
-        description: 状态
-        enum:
-        - 0
-        - 1
+      - description: 文章标题
+        in: body
+        name: title
+        required: true
+        schema:
+          type: string
+      - description: 文章简述
+        in: body
+        name: desc
+        schema:
+          type: string
+      - description: 封面图片地址
+        in: body
+        name: cover_image_url
+        required: true
+        schema:
+          type: string
+      - description: 文章内容
+        in: body
+        name: content
+        required: true
+        schema:
+          type: string
+      - description: 创建者
+        in: body
+        name: created_by
+        required: true
+        schema:
+          type: integer
+      - description: 状态
         in: body
         name: state
         schema:
           type: integer
-      - description: 创建者
-        in: body
-        maxLength: 100
-        minLength: 3
-        name: created_by
-        required: true
-        schema:
-          type: string
       produces:
       - application/json
       responses:
         "200":
           description: 成功
           schema:
-            $ref: '#/definitions/model.ArticleSwagger'
+            type: "null"
         "400":
           description: 请求错误
           schema:
@@ -179,13 +179,13 @@ paths:
           description: 内部错误
           schema:
             $ref: '#/definitions/errcode.Error'
-      summary: 新增文章
+      summary: 创建文章
       tags:
       - Article
   /api/v1/articles/{id}:
     delete:
       parameters:
-      - description: 文章 ID
+      - description: 文章ID
         in: path
         name: id
         required: true
@@ -196,7 +196,7 @@ paths:
         "200":
           description: 成功
           schema:
-            type: string
+            type: "null"
         "400":
           description: 请求错误
           schema:
@@ -208,33 +208,60 @@ paths:
       summary: 删除文章
       tags:
       - Article
-    put:
+    get:
       parameters:
-      - description: 文章 ID
+      - description: 文章ID
         in: path
         name: id
         required: true
         type: integer
-      - description: 文章名称
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/service.Article'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 获取单个文章
+      tags:
+      - Article
+    put:
+      parameters:
+      - description: 标签ID
         in: body
-        maxLength: 100
-        minLength: 3
-        name: name
+        name: tag_id
         schema:
           type: string
-      - default: 1
-        description: 状态
-        enum:
-        - 0
-        - 1
+      - description: 文章标题
         in: body
-        name: state
+        name: title
         schema:
-          type: integer
+          type: string
+      - description: 文章简述
+        in: body
+        name: desc
+        schema:
+          type: string
+      - description: 封面图片地址
+        in: body
+        name: cover_image_url
+        schema:
+          type: string
+      - description: 文章内容
+        in: body
+        name: content
+        schema:
+          type: string
       - description: 修改者
         in: body
-        maxLength: 100
-        minLength: 3
         name: modified_by
         required: true
         schema:
@@ -245,9 +272,7 @@ paths:
         "200":
           description: 成功
           schema:
-            items:
-              $ref: '#/definitions/model.ArticleSwagger'
-            type: array
+            type: "null"
         "400":
           description: 请求错误
           schema:
@@ -334,7 +359,7 @@ paths:
         "200":
           description: 成功
           schema:
-            $ref: '#/definitions/model.TagSwagger'
+            type: "null"
         "400":
           description: 请求错误
           schema:
@@ -360,7 +385,7 @@ paths:
         "200":
           description: 成功
           schema:
-            type: string
+            type: "null"
         "400":
           description: 请求错误
           schema:
@@ -409,9 +434,7 @@ paths:
         "200":
           description: 成功
           schema:
-            items:
-              $ref: '#/definitions/model.TagSwagger'
-            type: array
+            type: "null"
         "400":
           description: 请求错误
           schema:
@@ -423,4 +446,69 @@ paths:
       summary: 更新标签
       tags:
       - Tag
+  /auth:
+    post:
+      parameters:
+      - description: AppKey
+        in: body
+        name: AppKey
+        required: true
+        schema:
+          type: string
+      - description: AppSecret
+        in: body
+        name: AppSecret
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: token
+          schema:
+            type: string
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 获取Token
+      tags:
+      - Auth
+  /upload/file:
+    post:
+      parameters:
+      - description: 文件名称
+        in: formData
+        name: file
+        required: true
+        type: string
+      - description: 1为图片
+        in: body
+        name: type
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: URL
+          schema:
+            type: string
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 上传图片
+      tags:
+      - File
 swagger: "2.0"

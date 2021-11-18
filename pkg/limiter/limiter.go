@@ -9,7 +9,7 @@ import (
 type LimiterIface interface {
 	Key(c *gin.Context) string                          //获取对应的限流器的键值对名称。
 	GetBucket(key string) (*ratelimit.Bucket, bool)     //获取令牌桶。
-	AddBuckets(rules ...LimiterBucketRule) LimiterIface //新增多个令牌桶。
+	AddBuckets(rules ...LimiterBucketRule) LimiterIface //新增多个令牌桶规则。
 }
 
 // Limiter 存储令牌桶与键值对名称的映射关系

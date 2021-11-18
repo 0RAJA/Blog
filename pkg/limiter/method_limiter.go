@@ -37,7 +37,7 @@ func (l MethodLimiter) GetBucket(key string) (*ratelimit.Bucket, bool) {
 	return bucket, ok
 }
 
-// AddBuckets 添加桶
+// AddBuckets 添加桶规则
 func (l MethodLimiter) AddBuckets(rules ...LimiterBucketRule) LimiterIface {
 	for _, rule := range rules {
 		if _, ok := l.limiterBuckets[rule.Key]; !ok {

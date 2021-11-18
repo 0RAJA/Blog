@@ -9,6 +9,11 @@ import (
 我们主要是在 dao 层进行了数据访问对象的封装，并针对业务所需的字段进行了处理
 */
 
+func (d *Dao) GetTag(id uint32, state uint8) (*model.Tag, error) {
+	tag := model.Tag{Model: &model.Model{ID: id}, State: state}
+	return tag.Get(d.engine)
+}
+
 func (d *Dao) CountTag(name string, state uint8) (int, error) {
 	tag := model.Tag{
 		Name:  name,
@@ -52,4 +57,9 @@ func (d *Dao) UpdateTag(id uint32, name string, state uint8, modifiedBy string) 
 func (d *Dao) DeleteTag(id uint32) error {
 	tag := &model.Tag{Model: &model.Model{ID: id}}
 	return tag.Delete(d.engine)
+}
+
+func (d *Dao) IsExit(name string) bool {
+	tag := &model.Tag{Name: name}
+	return tag.IsExit(d.engine)
 }

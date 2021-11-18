@@ -13,6 +13,17 @@ import (
 这块的逻辑主要是校验及获取入参后，绑定并获取到的 app_key 和 app_secrect 进行数据库查询，
 检查认证信息是否存在，若存在则进行 Token 的生成并返回
 */
+
+// GetAuth
+// @Tags Auth
+// @Summary 获取Token
+// @Produce  json
+// @Param AppKey body string true "AppKey"
+// @Param AppSecret body string true "AppSecret"
+// @Success 200 {string} string "token"
+// @Failure 400 {object} errcode.Error "请求错误"
+// @Failure 500 {object} errcode.Error "内部错误"
+// @Router /auth [post]
 func GetAuth(c *gin.Context) {
 	param := service.AuthRequest{}
 	response := app.NewResponse(c)

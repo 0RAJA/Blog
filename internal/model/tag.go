@@ -34,6 +34,16 @@ func (t Tag) Count(db *gorm.DB) (int, error) {
 	return count, nil
 }
 
+// Get 获取
+func (t Tag) Get(db *gorm.DB) (*Tag, error) {
+	var tag Tag
+	err := db.Where("id = ? AND is_del = ? AND state = ?", t.ID, 0, t.State).First(&tag).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, err
+	}
+	return &tag, nil
+}
+
 // List 获取指定范围的标签
 func (t Tag) List(db *gorm.DB, pageOffset, pageSize int) ([]*Tag, error) {
 	var tags []*Tag
@@ -66,6 +76,11 @@ func (t Tag) Update(db *gorm.DB, values interface{}) error {
 // Delete 删除标签
 func (t Tag) Delete(db *gorm.DB) error {
 	return db.Where("id = ? AND is_del = ?", t.ID, 0).Delete(&t).Error
+}
+
+// IsExit 判断标签是否存在
+func (t Tag) IsExit(db *gorm.DB) bool {
+	return db.Where("name = ?", t.Name).Find(&t).Error == nil
 }
 
 /*

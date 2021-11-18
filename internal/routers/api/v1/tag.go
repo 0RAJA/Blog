@@ -67,7 +67,6 @@ func (t Tag) List(c *gin.Context) {
 		response.ToErrorResponse(errcode.ErrorGetTagListFail)
 		return
 	}
-	//runtime.Goexit()
 	response.ToResponseList(tags, totalRows) //返回结果
 }
 
@@ -78,7 +77,7 @@ func (t Tag) List(c *gin.Context) {
 // @Param name body string true "标签名称" minlength(3) maxlength(100)
 // @Param state body int false "状态" Enums(0, 1) default(1)
 // @Param created_by body string true "创建者" minlength(3) maxlength(100)
-// @Success 200 {object} model.TagSwagger "成功"
+// @Success 200 {null} string "成功"
 // @Failure 400 {object} errcode.Error "请求错误"
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tags [post]
@@ -92,6 +91,12 @@ func (t Tag) Create(c *gin.Context) {
 		return
 	}
 	svc := service.New(c.Request.Context())
+	isExit := svc.IsExitTag(&param)
+	if isExit == true {
+		global.Logger.Infof("svc.IsExitTag IsExit")
+		response.ToErrorResponse(errcode.ErrorTagIsExit)
+		return
+	}
 	err := svc.CreateTag(&param)
 	if err != nil {
 		global.Logger.Infof("svc.CreateTag err: %v", err)
@@ -109,7 +114,7 @@ func (t Tag) Create(c *gin.Context) {
 // @Param name body string false "标签名称" minlength(3) maxlength(100)
 // @Param state body int false "状态" Enums(0, 1) default(1)
 // @Param modified_by body string true "修改者" minlength(3) maxlength(100)
-// @Success 200 {array} model.TagSwagger "成功"
+// @Success 200 {null} string "成功"
 // @Failure 400 {object} errcode.Error "请求错误"
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tags/{id} [put]
@@ -138,7 +143,7 @@ func (t Tag) Update(c *gin.Context) {
 // @Summary 删除标签
 // @Produce  json
 // @Param id path int true "标签 ID"
-// @Success 200 {string} string "成功"
+// @Success 200 {null} string "成功"
 // @Failure 400 {object} errcode.Error "请求错误"
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tags/{id} [delete]

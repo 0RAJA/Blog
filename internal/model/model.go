@@ -9,6 +9,11 @@ import (
 	"time"
 )
 
+const (
+	STATE_OPEN  = 1
+	STATE_CLOSE = 0
+)
+
 // Model 公共 model
 type Model struct {
 	ID         uint32 `gorm:"primary_key" json:"id"`
