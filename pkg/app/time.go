@@ -11,7 +11,7 @@ const (
 	LayoutDateTime = "2006-01-02 15:04:05"
 )
 
-var cstZone *time.Location //
+var cstZone *time.Location
 
 func init() {
 	cstZone = time.FixedZone("CST", 8*3600)

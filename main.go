@@ -65,19 +65,7 @@ func main() {
 			fmt.Println(err)
 		}
 	}()
-	//退出通知
-	quit := make(chan os.Signal)
-	//等待退出通知
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	<-quit
-	global.Logger.Infof("ShutDown Server...")
-	//给几秒完成剩余任务
-	ctx, cancel := context.WithTimeout(context.Background(), global.AppSetting.DefaultContextTimeout)
-	defer cancel()
-	if err := s.Shutdown(ctx); err != nil { //优雅退出
-		global.Logger.Infof("Server forced to ShutDown:", err)
-	}
-	global.Logger.Infof("Server exiting")
+	gracefulExit(s) //优雅退出
 }
 
 //设置配置文件
@@ -149,6 +137,23 @@ func setupFlag() {
 	if config == "" {
 		config = "configs/"
 	}
+}
+
+//优雅关机
+func gracefulExit(s *http.Server) {
+	//退出通知
+	quit := make(chan os.Signal)
+	//等待退出通知
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+	global.Logger.Infof("ShutDown Server...")
+	//给几秒完成剩余任务
+	ctx, cancel := context.WithTimeout(context.Background(), global.AppSetting.DefaultContextTimeout)
+	defer cancel()
+	if err := s.Shutdown(ctx); err != nil { //优雅退出
+		global.Logger.Infof("Server forced to ShutDown:", err)
+	}
+	global.Logger.Infof("Server exiting")
 }
 
 func SetupTracer() error {

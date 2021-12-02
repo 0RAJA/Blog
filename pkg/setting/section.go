@@ -1,7 +1,6 @@
 package setting
 
 import (
-	"github.com/fsnotify/fsnotify"
 	"time"
 )
 
@@ -54,44 +53,4 @@ type EmailSettingS struct {
 	IsSSL    bool
 	From     string
 	To       []string
-}
-
-//配置名存储记录
-var sections = make(map[string]interface{})
-
-// ReadSection 绑定配置文件
-func (s *Setting) ReadSection(k string, v interface{}) error {
-	//绑定
-	err := s.vp.UnmarshalKey(k, v)
-	if err != nil {
-		return err
-	}
-	if _, ok := sections[k]; !ok {
-		sections[k] = v
-	}
-	return nil
-}
-
-// ReloadAllSection 重新读取配置文件
-func (s *Setting) ReloadAllSection() error {
-	for k, v := range sections {
-		err := s.ReadSection(k, v)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-// WatchSettingChange 监听配置文件
-func (s *Setting) WatchSettingChange() {
-	go func() {
-		s.vp.WatchConfig()
-		s.vp.OnConfigChange(func(in fsnotify.Event) {
-			err := s.ReloadAllSection()
-			if err != nil {
-				panic(err)
-			}
-		})
-	}()
 }
